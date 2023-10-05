@@ -13,11 +13,15 @@ import java.util.List;
 @Slf4j
 @RestController
 public class EmployController {
+    private final EmployService employService;
+
+    public EmployController(EmployService employService) {
+        this.employService = employService;
+    }
+
     @GetMapping("/employs")
     public List<Employ> getEmploys(@RequestParam("name") String name, @RequestBody EmployRequest request) {
         log.info("name: {}, request: {}", name, request);
-        return List.of(
-                new Employ("greyun", 1234L),
-                new Employ("pablo", 5678L));
+        return employService.getEmploys();
     }
 }
